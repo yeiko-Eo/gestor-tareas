@@ -1,9 +1,26 @@
 import tkinter as tk
-from tkinter import messagebox
+from tkinter import messagebox, simpledialog
 from task_manager import Task_Manager
 
+#If we wanna create a new file or not
+def ask_create_file():
+    global file_name
+    response = messagebox.askyesno("Crear archivo", "¿Desea crear un nuevo archivo?")
+    if response:
+        file_name = tk.simpledialog.askstring("Nombre del archivo", "Ingrese el nombre del archivo:")
+        if file_name:
+            with open(file_name, 'w') as file:
+                file.write("")  # Create an empty file
+            messagebox.showinfo("Éxito", f"Archivo '{file_name}' creado exitosamente.")
+        else:
+            messagebox.showwarning("Advertencia", "Debe ingresar un nombre para el archivo.")
+    else:
+        file_name = "default"  # Default file name if the user doesn't create a new file
+
+ask_create_file()
+
 # Create the object
-task_manager = Task_Manager() # Default name of the file
+task_manager = Task_Manager(file_name + '.txt') # Default name of the file
 
 # Load tasks from the file
 task_manager.load_tasks()

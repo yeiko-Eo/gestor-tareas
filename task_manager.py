@@ -1,16 +1,16 @@
-import os 
+import os
 """
 To manage path
 """
 class Task_Manager:
-    def __init__(self, file_name = "tasks.txt"):
+    def __init__(self, file_name = "tasks.txt"): # Default value
         self.file_name = file_name
         self.tasks = []
     def load_tasks(self):
         if os.path.exists(self.file_name):
             with open(self.file_name, "r") as file:
                 for task in file:
-                    self.tasks.append(task.strip())
+                    self.tasks.append(task.strip()) # We add the current task
     def save_tasks(self):
         with open(self.file_name, "w") as file:
             for task in self.tasks:
