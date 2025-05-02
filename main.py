@@ -12,15 +12,22 @@ def ask_create_file():
             with open(file_name, 'w') as file:
                 file.write("")  # Create an empty file
             messagebox.showinfo("Éxito", f"Archivo '{file_name}' creado exitosamente.")
+            return True
         else:
             messagebox.showwarning("Advertencia", "Debe ingresar un nombre para el archivo.")
-    else:
-        file_name = "default"  # Default file name if the user doesn't create a new file
+            return False
 
 ask_create_file()
 
 # Create the object
-task_manager = Task_Manager(file_name + '.txt') # Default name of the file
+while True:
+    if ask_create_file():
+        try:
+            task_manager = Task_Manager(file_name)
+            break
+        except Exception as e:
+            messagebox.showerror("Error", f"Error al crear el gestor de tareas: {e}")
+            task_manager = Task_Manager()  # Default to a Task_Manager with no file
 
 # Load tasks from the file
 task_manager.load_tasks()
