@@ -16,8 +16,10 @@ def ask_create_file():
         else:
             messagebox.showwarning("Advertencia", "Debe ingresar un nombre para el archivo.")
             return False
-
-ask_create_file()
+    else:
+        messagebox.showinfo("Información", "No se creará un archivo nuevo. Se usará el gestor de tareas sin archivo.")
+        return False
+        
 
 # Create the object
 while True:
@@ -28,6 +30,9 @@ while True:
         except Exception as e:
             messagebox.showerror("Error", f"Error al crear el gestor de tareas: {e}")
             task_manager = Task_Manager()  # Default to a Task_Manager with no file
+    else:
+        task_manager = Task_Manager()  # Default to a Task_Manager with no file
+        break
 
 # Load tasks from the file
 task_manager.load_tasks()
@@ -56,6 +61,8 @@ def delete_task():
         task_manager.save_tasks()
     except IndexError:
         messagebox.showwarning("Advertencia", "Debes seleccionar una tarea para eliminar")
+
+ask_create_file()
 
 # Create main window
 root = tk.Tk()
